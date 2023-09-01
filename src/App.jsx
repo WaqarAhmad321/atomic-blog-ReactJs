@@ -91,7 +91,7 @@ function Posts() {
 }
 
 function FormAddPost() {
-  const { onAddPost } = usePosts();
+  const { onAddPosts } = usePosts();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -99,7 +99,7 @@ function FormAddPost() {
   const handleSubmit = function (e) {
     e.preventDefault();
     if (!body || !title) return;
-    onAddPost({ title, body });
+    onAddPosts({ title, body });
     setTitle("");
     setBody("");
   };

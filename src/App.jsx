@@ -70,12 +70,10 @@ function Results() {
 }
 
 function Main() {
-  const { posts, onAddPost } = usePosts();
-
   return (
     <main>
-      <FormAddPost onAddPost={onAddPost} />
-      <Posts posts={posts} />
+      <FormAddPost />
+      <Posts />
     </main>
   );
 }
@@ -96,7 +94,7 @@ function FormAddPost() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const handleSubmit = function (e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!body || !title) return;
     onAddPosts({ title, body });
@@ -136,7 +134,7 @@ function List() {
 }
 
 function Archive() {
-  const { onAddPost } = usePosts();
+  const { onAddPost, achieveOptions } = usePosts();
   const [posts] = useState(() =>
     Array.from({ length: 10 }, () => createRandomPost())
   );
@@ -145,7 +143,7 @@ function Archive() {
 
   return (
     <aside>
-      <h2>Post archive</h2>
+      <h2>{achieveOptions.title}</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
         {showArchive ? "Hide archive posts" : "Show archive posts"}
       </button>

@@ -1,4 +1,10 @@
-import { useState, createContext, useContext } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -24,9 +30,16 @@ function PostProvider({ children }) {
         )
       : posts;
 
-  function handleAddPost(post) {
+  const achieveOptions = useMemo(() => {
+    return {
+      show: false,
+      title: `Post achieve in addition to ${posts.length} main posts`,
+    };
+  }, [posts.length]);
+
+  const handleAddPost = useCallback((post) => {
     setPosts((posts) => [post, ...posts]);
-  }
+  }, []);
 
   function handleClearPosts() {
     setPosts([]);
@@ -40,6 +53,7 @@ function PostProvider({ children }) {
         onAddPosts: handleAddPost,
         searchQuery,
         setSearchQuery,
+        achieveOptions,
       }}>
       {children}
     </PostContext.Provider>
